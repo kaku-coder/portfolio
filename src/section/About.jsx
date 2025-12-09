@@ -6,6 +6,8 @@ import csimage from '../logos/icons8-c++-48.png'
 import react from '../logos/react-icon_svgstack_com_29171765189836.png'
 import { GlobeDemo } from '../componets/GlobeDemo'
 import ComponetEmail from '../componets/ComponetEmail'; // Note the typo in "Componet"
+// import Framwork from '../componets/Frameworks'
+import {Frameworks} from '../componets/Frameworks'
 // import { CompareDemo } from '../componets/CompareDemo'
 
 const About = () => {
@@ -179,7 +181,14 @@ const About = () => {
 
         {/* Grid 5 - Bottom Full Width */}
         <div className='flex items-end grid-default-color grid-5 md:col-span-6 md:row-span-1'>
-          {/* Content for fifth grid item */}
+          <div className='z-10 w-[50%]'>
+            <p className='headText'>Technical Skills</p>
+            <p className='subtext'>I specialize in modern programming languages and frameworks, enabling me to create fast, reliable, and scalable web applications.</p>
+          </div>
+          <div className='absolute inset-y-0 left-0 md:inset-y-9 w-full h-full start-[50%] md:scale-125'>
+          <Frameworks/>
+          </div>
+
         </div>
       </div>
     </section>
