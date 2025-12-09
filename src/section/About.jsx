@@ -16,7 +16,7 @@ const About = () => {
 
   return (
     <section className='c-space selection-spacing min-h-screen' id="about">
-      <h2 className='text-heading text-white mb-8'>About Me</h2>
+      <h2 className='text-heading text-white mt-4 mb-8 text-center'> <span className=''>About</span> <span className='text-[#643ed0] pl-2'>Me</span></h2>
       <div className='grid grid-cols-1 gap-4 md:grid-cols-6 md:auto-rows-[14rem] mt-8'>
         {/* Grid 1 - Top Left */}
         <motion.div

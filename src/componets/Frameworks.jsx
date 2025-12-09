@@ -22,7 +22,7 @@ export function Frameworks() {
     "wordpress",
   ];
   return (
-    <div className="relative flex h-[15rem] w-full flex-col items-baseline-last justify-center">
+    <div className="relative flex pr-15 h-[14rem] w-full flex-col items-baseline-last justify-center">
       <OrbitingCircles iconSize={40}>
         {skills.map((skill, index) => (
           <Icon key={index} src={`/src/logos/${skill}.svg`} />
