@@ -82,30 +82,19 @@ const Project = () => {
           <div className='w-24 h-1 bg-coral mx-auto'></div>
         </motion.div>
 
-        <motion.div
-          variants={container}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, amount: 0.2 }}
-          className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'
-        >
+        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'>
           {projects.map((project) => (
-            <motion.div
+            <div
               key={project.id}
-              variants={item}
-              whileHover="hover"
               className='bg-navy p-6 rounded-lg shadow-lg overflow-hidden'
             >
-              <motion.div 
-                whileHover={{ scale: 1.03 }}
-                className='overflow-hidden rounded-md mb-4'
-              >
+              <div className='overflow-hidden rounded-md mb-4'>
                 <img 
                   src={project.image} 
                   alt={project.title} 
-                  className='w-full h-48 object-cover transition-transform duration-300'
+                  className='w-full h-48 object-cover'
                 />
-              </motion.div>
+              </div>
               <h3 className='text-xl font-bold mb-2 text-white'>{project.title}</h3>
               <p className='text-gray-300 mb-4'>{project.description}</p>
               <div className='flex flex-wrap gap-2 mb-4'>
@@ -115,41 +104,37 @@ const Project = () => {
                   </span>
                 ))}
               </div>
-              <div className='flex gap-4'>
+              <div className='flex gap-4 p-4  border-2 border-none relative z-50'>
                 {project.demoUrl && (
-                  <motion.a
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    href={project.demoUrl}
-                    target='_blank'
-                    rel='noopener noreferrer'
-                    className='bg-coral text-white px-4 py-2 rounded-md'
-                    onClick={(e) => {
-                      e.preventDefault();
+                  <button
+                    onMouseEnter={() => console.log('Mouse entered Live Demo button')}
+                    onMouseLeave={() => console.log('Mouse left Live Demo button')}
+                    onClick={() => {
+                      alert('Button clicked!');
+                      console.log('Button clicked!');
                       window.open(project.demoUrl, '_blank', 'noopener,noreferrer');
                     }}
+                    className='bg-green-500 text-white px-4 py-2 rounded-md transition-all duration-300 cursor-pointer hover:bg-green-600 hover:scale-110 hover:shadow-lg hover:shadow-green-500/50 active:scale-95 border-2 border-black'
                   >
                     Live Demo
-                  </motion.a>
+                  </button>
                 )}
-                <motion.a
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  href={project.githubUrl}
-                  target='_blank'
-                  rel='noopener noreferrer'
-                  className='border border-coral text-coral px-4 py-2 rounded-md'
-                  onClick={(e) => {
-                    e.preventDefault();
+                <button
+                  onMouseEnter={() => console.log('Mouse entered View Code button')}
+                  onMouseLeave={() => console.log('Mouse left View Code button')}
+                  onClick={() => {
+                    alert('View Code clicked!');
+                    console.log('View Code clicked!');
                     window.open(project.githubUrl, '_blank', 'noopener,noreferrer');
                   }}
+                  className='bg-blue-500 text-white px-4 py-2 rounded-md transition-all duration-300 cursor-pointer hover:bg-blue-600 hover:scale-110 hover:shadow-lg hover:shadow-blue-500/50 active:scale-95 border-2 border-black'
                 >
                   View Code
-                </motion.a>
+                </button>
               </div>
-            </motion.div>
+            </div>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );
