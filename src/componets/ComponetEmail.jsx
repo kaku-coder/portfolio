@@ -4,9 +4,9 @@ import copyimage from "../assets/icons8-copy-24.png";
 
 const ComponetEmail = ({ onCopy, copied }) => {
     const email = "devilprakashdas@gmail.com";
+    console.log('ComponentEmail - copied prop:', copied);
 
-    const handleClick = (e) => {
-        e.preventDefault();
+    const handleClick = () => {
         console.log("Button clicked!");
         
         // Call the onCopy function if provided
