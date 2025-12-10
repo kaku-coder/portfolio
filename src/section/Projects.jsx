@@ -1,4 +1,5 @@
-   import { motion } from 'framer-motion';
+import { motion } from 'framer-motion';
+import ProjectCard from '../componets/ProjectCard'
 
 // Animation variants
 const container = {
@@ -83,54 +84,8 @@ const Project = () => {
 
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'>
           {projects.map((project) => (
-            <div
-              key={project.id}
-              className='bg-navy p-6 rounded-lg shadow-lg overflow-hidden'
-            >
-              <div className='overflow-hidden rounded-md mb-4'>
-                <img 
-                  src={project.image} 
-                  alt={project.title} 
-                  className='w-full h-48 object-cover'
-                />
-              </div>
-              <h3 className='text-xl font-bold mb-2 text-white'>{project.title}</h3>
-              <p className='text-gray-300 mb-4'>{project.description}</p>
-              <div className='flex flex-wrap gap-2 mb-4'>
-                {project.tag?.map((tag, index) => (
-                  <span key={index} className='bg-storm text-white text-sm px-3 py-1 rounded-full'>
-                    {tag}
-                  </span>
-                ))}
-              </div>
-              <div className='flex gap-4 p-4  border-2 border-none relative z-50'>
-                {project.demoUrl && (
-                  <button
-                    onMouseEnter={() => console.log('Mouse entered Live Demo button')}
-                    onMouseLeave={() => console.log('Mouse left Live Demo button')}
-                    onClick={() => {
-                      alert('Button clicked!');
-                      console.log('Button clicked!');
-                      window.open(project.demoUrl, '_blank', 'noopener,noreferrer');
-                    }}
-                    className='bg-green-500 text-white px-4 py-2 rounded-md transition-all duration-300 cursor-pointer hover:bg-green-600 hover:scale-110 hover:shadow-lg hover:shadow-green-500/50 active:scale-95 border-2 border-black'
-                  >
-                    Live Demo
-                  </button>
-                )}
-                <button
-                  onMouseEnter={() => console.log('Mouse entered View Code button')}
-                  onMouseLeave={() => console.log('Mouse left View Code button')}
-                  onClick={() => {
-                    alert('View Code clicked!');
-                    console.log('View Code clicked!');
-                    window.open(project.githubUrl, '_blank', 'noopener,noreferrer');
-                  }}
-                  className='bg-blue-500 text-white px-4 py-2 rounded-md transition-all duration-300 cursor-pointer hover:bg-blue-600 hover:scale-110 hover:shadow-lg hover:shadow-blue-500/50 active:scale-95 border-2 border-black'
-                >
-                  View Code
-                </button>
-              </div>
+            <div key={project.id}>
+              <ProjectCard project={project} />
             </div>
           ))}
         </div>
