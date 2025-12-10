@@ -1,15 +1,18 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import copyimage from "../assets/icons8-copy-24.png";
 
-const ComponetEmail = () => {
-    const [showEmail, setShowEmail] = useState(false);
+const ComponetEmail = ({ onCopy, copied }) => {
     const email = "devilprakashdas@gmail.com";
 
     const handleClick = (e) => {
         e.preventDefault();
-        console.log("Button clicked!"); // Check if this logs in console
-        setShowEmail(!showEmail);
+        console.log("Button clicked!");
+        
+        // Call the onCopy function if provided
+        if (onCopy) {
+            onCopy();
+        }
         
         // Simple copy to clipboard
         navigator.clipboard.writeText(email)
@@ -29,13 +32,8 @@ const ComponetEmail = () => {
                     className="w-5 h-5"
                     style={{ filter: "brightness(0) invert(1)" }}
                 />
-                {showEmail ? "Copied!" : "Copy Email"}
+                {copied ? "Copied!" : "Copy Email"}
             </button>
-            {showEmail && (
-                <div className="absolute left-1/2 -translate-x-1/2 mt-2 bg-[#7956db] text-[#7956db] t p-2 rounded text-sm z-50">
-                    {email}
-                </div>
-            )}
         </div>
     );
 };

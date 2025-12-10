@@ -78,8 +78,7 @@ const Project = () => {
           transition={{ duration: 0.6 }}
           className='text-center mb-16'
         >
-          <h2 className='text-4xl font-bold mb-4 text-white'>My Projects</h2>
-          <div className='w-24 h-1 bg-coral mx-auto'></div>
+          <h2 className='text-4xl font-bold mb-4 text-white'> <span>My </span> <span className='text-[#643ed0] '>Projects</span></h2>
         </motion.div>
 
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'>

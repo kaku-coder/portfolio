@@ -13,10 +13,15 @@ import {Frameworks} from '../componets/Frameworks'
 const About = () => {
   const [imageLoaded, setImageLoaded] = useState(false)
   const dragZoneRef = useRef(null);
+  const [emailCopied, setEmailCopied] = useState(false);
+  const emailTimeoutRef = useRef(null);
+  const [contactHovered, setContactHovered] = useState(false);
+  const contactTimeoutRef = useRef(null);
 
   return (
-    <section className='c-space selection-spacing min-h-screen' id="about">
+    <section className='c-space min-h-screen pointer-events-auto' id="about">
       <h2 className='text-heading text-white mt-4 mb-8 text-center'> <span className=''>About</span> <span className='text-[#643ed0] pl-2'>Me</span></h2>
+      
       <div className='grid grid-cols-1 gap-4 md:grid-cols-6 md:auto-rows-[14rem] mt-8'>
         {/* Grid 1 - Top Left */}
         <motion.div
@@ -111,7 +116,13 @@ const About = () => {
         </motion.div>
 
         {/* Grid 2 - Top Right */}
-        <motion.div className='grid-default-color grid-2'>
+        <motion.div 
+          whileHover={{
+            scale: 1.02,
+            transition: { duration: 0.3 }
+          }}
+          className='grid-default-color grid-2 transition-all duration-300 hover:shadow-xl hover:shadow-purple-500/20'
+        >
           <div ref={dragZoneRef} className=" relative  w-full h-[10rem]" >
             <p className='absolute inset-x-0 top-4 text-center text-5xl text-gray-500 pointer-events-none'>DRAG IT ANYWHERE</p>
 
@@ -159,29 +170,71 @@ const About = () => {
         </motion.div>
 
         {/* Grid 3 - Middle Left */}
-        <div className='grid-black-color grid-3 md:col-span-2 md:row-span-1 relative overflow-hidden'>
-          <div className="absolute top-4 left-0 right-0 z-20 text-lef">
+        <motion.div 
+          whileHover={{
+            scale: 1.02,
+            transition: { duration: 0.3 }
+          }}
+          className='grid-black-color grid-3 md:col-span-2 md:row-span-1 relative overflow-hidden transition-all duration-300 hover:shadow-xl hover:shadow-blue-500/20 pointer-events-auto'
+          onMouseEnter={() => console.log('Mouse entered TimeZone grid')}
+          onMouseLeave={() => console.log('Mouse left TimeZone grid')}
+        >
+          <div 
+            className="absolute top-4 left-0 right-0 z-20 text-lef transition-all duration-300 hover:scale-105"
+          >
             <p className="headText">TimeZone</p>
             <p className='subtext'>
               I'm based in Mars, and open <br /> to remote work worldwide
             </p>
           </div>
-          <div className='absolute inset-0 w-full h-full z-10'>
+          <div 
+            className='absolute inset-0 w-full h-full z-10'
+            onMouseEnter={() => console.log('Mouse entered TimeZone grid')}
+            onMouseLeave={() => console.log('Mouse left TimeZone grid')}
+          >
 <GlobeDemo scale={[0.3, 0.3, 0.3]} />
           </div>
-        </div>
+        </motion.div>
 
         {/* Grid 4 - Middle Right */}
-   <div className='grid-special-color grid-4 md:col-span-4 md:row-span-1'>
-    <div className='flex flex-col items-center justify-center gap-4 size-full'>
-        <p className='text-center headtext'>Do you want to start a project together?</p>
-        <ComponetEmail />
-    </div>
-</div>
+        <motion.div 
+          whileHover={{
+            scale: 1.02,
+            transition: { duration: 0.3 }
+          }}
+          className='grid-special-color grid-4 md:col-span-4 md:row-span-1 transition-all duration-300 hover:shadow-xl hover:shadow-coral/20 pointer-events-auto'
+        >
+          <div 
+            className='flex flex-col items-center justify-center gap-4 size-full transition-all duration-300 hover:scale-105'
+          >
+            <p className='text-center headtext'>Do you want to start a project together?</p>
+            <div className='pointer-events-auto'>
+              <ComponetEmail 
+                onCopy={() => {
+                  setEmailCopied(true);
+                  setTimeout(() => {
+                    setEmailCopied(false);
+                  }, 3000);
+                }}
+                copied={emailCopied}
+              />
+            </div>
+          </div>
+        </motion.div>
 
         {/* Grid 5 - Bottom Full Width */}
-        <div className='flex items-end grid-default-color grid-5 md:col-span-6 md:row-span-1'>
-          <div className='z-10 w-[50%]'>
+        <motion.div 
+          whileHover={{
+            scale: 1.02,
+            transition: { duration: 0.3 }
+          }}
+          className='flex items-end grid-default-color grid-5 md:col-span-6 md:row-span-1 transition-all duration-300 hover:shadow-xl hover:shadow-purple-500/20 pointer-events-auto'
+          onMouseEnter={() => console.log('Mouse entered Technical Skills grid')}
+          onMouseLeave={() => console.log('Mouse left Technical Skills grid')}
+        >
+          <div 
+            className='z-10 w-[50%] transition-all duration-300 hover:scale-105'
+          >
             <p className='headText'>Technical Skills</p>
             <p className='subtext'>I specialize in modern programming languages and frameworks, enabling me to create fast, reliable, and scalable web applications.</p>
           </div>
@@ -189,7 +242,7 @@ const About = () => {
           <Frameworks/>
           </div>
 
-        </div>
+        </motion.div>
       </div>
     </section>
   )
