@@ -3,18 +3,47 @@ import ContactExperience from '../componets/ContactExperience'
 
 const Contact = () => {
   const [form, setForm] = useState({ name: '', email: '', message: '' })
+  const [loading, setLoading] = useState(false)
+  const [status, setStatus] = useState(null)
 
   function handleChange(e) {
     const { name, value } = e.target
     setForm((s) => ({ ...s, [name]: value }))
   }
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault()
-    // simple placeholder action — swap with real submission logic
-    console.log('Contact form submitted', form)
-    alert('Thanks — message captured (check console).')
-    setForm({ name: '', email: '', message: '' })
+    setLoading(true)
+    setStatus(null)
+    
+    // Simulate API call with timeout
+    try {
+      await new Promise(resolve => setTimeout(resolve, 1500)) // Simulate network delay
+      
+      // Simulate validation
+      if (!form.name || !form.email || !form.message) {
+        throw new Error('Please fill in all fields')
+      }
+      
+      if (!form.email.includes('@')) {
+        throw new Error('Please enter a valid email address')
+      }
+      
+      // Success - in real app, this would be an actual API call
+      console.log('Contact form submitted', form)
+      setStatus({ type: 'success', message: 'Message sent successfully! I\'ll get back to you soon.' })
+      setForm({ name: '', email: '', message: '' })
+      
+      // Optional: Open email client with pre-filled data
+      const mailtoLink = `mailto:your-email@example.com?subject=Portfolio Contact: ${form.name}&body=Name: ${form.name}%0D%0AEmail: ${form.email}%0D%0A%0D%0AMessage:%0D%0A${form.message}`
+      console.log('You can also send via email:', mailtoLink)
+      
+    } catch (err) {
+      console.error('Contact submit error', err)
+      setStatus({ type: 'error', message: err.message || 'Failed to send message. Please try again.' })
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -29,10 +58,10 @@ const Contact = () => {
         </header>
 
         {/* Grid: left = form, right = 3D experience */}
-        <div className="grid-12-cols grid grid-cols-1 md:grid-cols-12 gap-6 mt-8 items-start">
+        <div className="grid-12-cols grid grid-cols-1 md:grid-cols-12 gap-6 mt-8 items-stretch">
           {/* Form (left) */}
-          <div className="md:col-span-7 col-span-1 bg-navy rounded-lg p-6">
-            <form onSubmit={handleSubmit} className="space-y-4">
+          <div className="md:col-span-6 col-span-1 bg-navy rounded-lg p-6 h-full flex flex-col">
+            <form onSubmit={handleSubmit} className="space-y-4 flex flex-col justify-between h-full">
               <div>
                 <label className="block text-sm font-medium text-gray-200 mb-2">Name</label>
                 <input
@@ -71,17 +100,23 @@ const Contact = () => {
               <div>
                 <button
                   type="submit"
-                  className="bg-[#643ed0] text-white px-6 py-3 rounded-md hover:opacity-95 transition"
+                  className="bg-[#643ed0] text-white px-6 py-3 rounded-md hover:opacity-95 transition disabled:opacity-60 disabled:cursor-not-allowed"
+                  disabled={loading}
                 >
-                  Send Message
+                  {loading ? 'Sending...' : 'Send Message'}
                 </button>
               </div>
+              {status && (
+                <div className={`mt-3 text-sm ${status.type === 'success' ? 'text-green-400' : 'text-rose-400'}`}>
+                  {status.message}
+                </div>
+              )}
             </form>
           </div>
 
           {/* Contact Experience (right) */}
-          <div className="md:col-span-5 col-span-1">
-            <div className="bg-black/60 rounded-lg p-4 h-full min-h-[320px]">
+          <div className="md:col-span-6 col-span-1 h-full">
+            <div className="bg-black/60 rounded-lg p-4 h-full min-h-[320px] flex items-center justify-center">
               <ContactExperience />
             </div>
           </div>

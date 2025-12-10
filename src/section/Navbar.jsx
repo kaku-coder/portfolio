@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { createPortal } from 'react-dom';
 import menuIcon from "../assets/menu.svg";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -54,8 +55,8 @@ function Navigation({ isMobile = false }) {
         >
           <a
             className={`nav-link transition-all duration-300 ${isMobile
-                ? 'block text-xl py-2 hover:bg-white/10 rounded'
-                : 'hover:text-white text-neutral-400'
+              ? 'block text-xl py-2 hover:bg-white/10 rounded'
+              : 'hover:text-white text-neutral-400'
               }`}
             href={item.href}
           >
@@ -70,12 +71,10 @@ function Navigation({ isMobile = false }) {
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const toggleMenu = () => {
-    setIsOpen(!isOpen);
-  };
+  const toggleMenu = () => setIsOpen((s) => !s);
 
-  return (
-    <div className="fixed inset-x-0 z-50 w-full bg-black/30 text-white backdrop-blur-md">
+  const navDom = (
+    <div className="fixed inset-x-0 top-0 z-[9999] w-full bg-black/30 text-white backdrop-blur-md" style={{ position: 'fixed', top: 0, left: 0, right: 0 }}>
       <div className="mx-auto c-space max-w-8xl">
         <div className="flex items-center justify-between py-2 sm:py-0">
           {/* Logo */}
@@ -97,10 +96,7 @@ const Navbar = () => {
           >
             <motion.img
               initial={{ rotate: 0 }}
-              animate={{
-                rotate: isOpen ? 90 : 0,
-                transition: { duration: 0.3 }
-              }}
+              animate={{ rotate: isOpen ? 90 : 0, transition: { duration: 0.3 } }}
               src={menuIcon}
               alt="Menu"
               className="w-6 h-6 text-neutral-400 hover:text-white"
@@ -118,25 +114,11 @@ const Navbar = () => {
           {isOpen && (
             <motion.div
               initial={{ opacity: 0, height: 0 }}
-              animate={{
-                opacity: 1,
-                height: "auto",
-                transition: {
-                  duration: 0.3,
-                  ease: "easeInOut"
-                }
-              }}
-              exit={{
-                opacity: 0,
-                height: 0,
-                transition: {
-                  duration: 0.2,
-                  ease: "easeInOut"
-                }
-              }}
+              animate={{ opacity: 1, height: 'auto', transition: { duration: 0.3, ease: 'easeInOut' } }}
+              exit={{ opacity: 0, height: 0, transition: { duration: 0.2, ease: 'easeInOut' } }}
               className="sm:hidden"
             >
-              <nav className="">
+              <nav>
                 <Navigation isMobile={true} />
               </nav>
             </motion.div>
@@ -145,6 +127,12 @@ const Navbar = () => {
       </div>
     </div>
   );
+
+  if (typeof document !== 'undefined') {
+    return createPortal(navDom, document.body);
+  }
+
+  return navDom;
 };
 
 export default Navbar;
