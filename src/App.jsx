@@ -3,6 +3,7 @@ import Hero from './section/Hero.jsx'
 import './App.css'
 import About from './section/About.jsx'
 import Project from './section/Projects.jsx' 
+import Contact from './section/Contact.jsx'
 
 
 function App() {
@@ -14,13 +15,12 @@ function App() {
       <Hero/>
       <About/>
     <Project/>
+    <Contact/>
       <section className='min-h-screen'></section>
       <section className='min-h-screen'></section>
       <section className='min-h-screen'></section>
       <section className='min-h-screen'></section>
       <section className='min-h-screen'></section>
-      {/* projects */}
-      {/* eperience */}
       {/* contact */}
       {/* foter */}
     </div>

@@ -17,10 +17,15 @@ const ParallaxBackground = () => {
   const x = useSpring(scrollYProgress, springConfig);
 
   // Parallax transformations
-  const planetsY = useTransform(x, [0, 1], ['0%', '10%']);
-  const mountain3y = useTransform(x, [0, 1], ['0%', '20%']);
-  const mountain2y = useTransform(x, [0, 1], ['0%', '30%']);
-  const mountain1y = useTransform(x, [0, 1], ['0%', '40%']);
+  // Move layers slightly upward as the page scrolls down
+  const planetsY = useTransform(x, [0, 1], ['0%', '-10%']);
+  const mountain3y = useTransform(x, [0, 1], ['0%', '-20%']);
+  const mountain2y = useTransform(x, [0, 1], ['0%', '-30%']);
+  const mountain1y = useTransform(x, [0, 1], ['0%', '-40%']);
+
+  // Black reveal: starts hidden (translated down) and slides up as user scrolls
+  // Map scroll progress 0..1 to translateY from 100% -> 0% (so it reveals from bottom)
+  const blackRevealY = useTransform(x, [0, 1], ['100%', '0%']);
 
   return (
     <div className="absolute inset-0 overflow-hidden">
@@ -77,6 +82,20 @@ const ParallaxBackground = () => {
           backgroundPosition: 'bottom',
           backgroundRepeat: 'no-repeat',
           y: mountain1y,
+        }}
+      />
+
+      {/* Black reveal layer: appears from bottom as user scrolls */}
+      <motion.div
+        className="absolute left-0 right-0"
+        style={{
+          bottom: 0,
+          height: '100vh',
+          background: '#000',
+          zIndex: 20,
+          pointerEvents: 'none',
+          y: blackRevealY,
+          opacity: 1,
         }}
       />
     </div>

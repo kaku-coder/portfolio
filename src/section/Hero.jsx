@@ -27,16 +27,18 @@ const Hero = () => {
 
       {/* 3D Model Layer */}
       <figure
-        className="absolute inset-0 z-30 w-screen h-screen"
+        className="absolute inset-0 z-30 w-screen h-screen pointer-events-none"
         style={{
           position: 'fixed',
           top: 0,
           left: 0,
           width: '100vw',
           height: '100vh',
-          overflow: 'hidden'
+          overflow: 'hidden',
+          pointerEvents: 'none'
         }}
       >
+        {/* Models component may include interactive children; make them interactive selectively inside the component if needed. */}
         <Models />
       </figure>
     </section>
